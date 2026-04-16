@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/animations.css' %}">
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">  
+{% endblock %}
+{% block title %} Регистрация {% endblock %}
+{% block content %}
+    <div class="container2">
+        <form method="post" enctype="multipart/form-data">
+            <p class="title is-2">Регистрация</p>
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-field ">
+                    <label>{{ field.label }}</label>
+
+                    {% if field.name == "user_image" %}
+                        <!-- <label class="file-label"> -->
+                        <!-- <figure class="image is-128x128"> -->
+                        <!-- <img class="is-rounded" src="https://png.klev.club/uploads/posts/2024-04/png-klev-club-v3lo-p-avatarka-png-2.png" /> -->
+                        <!-- </figure> -->
+                        <!-- <div class="file is-primary">
+                        <label class="file-label">
+                            <input class="file-input" type="file" name="resume" />
+                            <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label"> Файл </span>
+                            </span>
+                        </label>
+                        </div> -->
+                        <label class="file-label">
+                            {{ field }}
+                        </label>
+                    {% else %}
+                        {{ field|add_class:"input is-rounded" }}
+                    {% endif %}
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+
+            <button class="button is-primary is-outlined">Зарегистрироваться</button>
+        </form>
+    </div>
+
+{% endblock %}

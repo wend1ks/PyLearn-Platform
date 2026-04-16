@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/signin.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+{% endblock %}  
+{% block title %} Вход {% endblock %}
+{% block content %}
+    <div class="page-center">
+        <div class="container2">
+            <p class="title is-2">Логин</p>
+            <div class="modal-content">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="fields">
+                        <label for="{{field.id_for_label}}">{{field.label}}</label>
+                        {{field}}
+                        {{field.errors}}
+                    </div>
+                {% endfor %}
+                {% if field.errors %}
+                    {{ field|add_class:"input is-danger" }}
+                {% else %}
+                    {{ field|add_class:"input" }}
+                {% endif %}
+                <button class="button is-primary is-outlined">Войти</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

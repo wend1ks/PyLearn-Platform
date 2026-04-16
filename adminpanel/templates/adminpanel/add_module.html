@@ -1,0 +1,30 @@
+{% extends "adminpanel/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/add_module.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+<link rel="stylesheet" href="{% static 'css/animations.css' %}">
+{% endblock %}  
+
+{% block content %}
+<div class="tabs is-centered">
+  <ul>
+    <li><a href="{% url 'adminpanel:edit_course' course.id %}"> Редактировать</a></li>
+    <li class="is-active"><a href="{% url 'adminpanel:add_module' course.id %}">Добавить модуль</a></li>
+    <li><a href="{% url 'adminpanel:course_modules' course.id %}">Посмотреть модули</a></li>
+  </ul>
+</div>
+
+<h1 class="title is-3 scale-in-center" id="text">Добавить модуль к курсу: {{ course.title }}</h1>
+<div class="container2 scale-in-center" style="width: 400px; margin-left: 20px;">
+  <form method="post">
+      {% csrf_token %}
+          {% for field in form %}
+            {{ field|add_class:"input is-rounded" }}
+          {% endfor %}
+      <button id="accept" class="button is-info is-inverted" type="submit">Добавить модуль</button>
+      <a id="cancel" class="button is-danger is-inverted" href="{% url 'adminpanel:course_list' %}">Отмена</a>
+  </form>
+</div>
+{% endblock %}

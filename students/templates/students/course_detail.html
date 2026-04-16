@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% load static %}
+{% load widget_tweaks %}
+{% block link %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+<link rel="stylesheet" href="{% static 'css/course_detail.css'%}">
+<link rel="stylesheet" href="{% static 'css/animations.css' %}">
+{% endblock %}  
+{% block content %}
+<div class="container2" style="margin-left: 550px; margin-top: 30px;">
+    <h2 class="title is-3 scale-in-center">{{ course.title }}</h2>
+
+    <div class="card slide-in-blurred-top" style="width: 700px; height: 100px;"  >
+    <div class="card-content">
+        <p class="content">{{ course.description }}</p>
+    </div>
+    </div>
+
+
+    <h3 class="title is-5 scale-in-center">Модули курса:</h3>
+
+    <div class="card slide-in-blurred-top" style="width: 700px;">
+        <div class="card-content">
+            <ul>
+            {% for module in modules %}
+                <li style="margin-top: 20px;">
+                    <strong>{{ module.title }}</strong><p style="margin-top: 10px;">прогресс: {{ module_progress|get_item:module.id }} %</p>
+                    <progress class="progress is-primary" value="{{ module_progress|get_item:module.id }}" max="100">{{ module_progress|get_item:module.id }}</progress>
+                    <ul>
+                    {% for lesson in module.lessons.all %}
+                        <li style="margin-top: 10px;">
+                            {% if lesson.lesson_type == 'task' %}📝{% elif lesson.lesson_type == 'video' %}🎥{% else %}📄{% endif %}
+                            {{ lesson.title }} 
+                            {% if lesson_progress|get_item:lesson.id %}<a class="button is-primary is-inverted" style="margin-left: 20px;" href="{% url 'students:lesson_detail' lesson.id %}">Перейти к выполненому уроку</a>{% else %}<a class="button is-danger is-inverted" style="margin-left: 20px;" href="{% url 'students:lesson_detail' lesson.id %}">Перейти к не выполненому уроку</a>{% endif %}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <a class="button is-info is-inverted roll-in-blurred-left" href="{% url 'students:course_list' %}">⬅ Вернуться к списку курсов</a>
+</div>
+{% endblock %}

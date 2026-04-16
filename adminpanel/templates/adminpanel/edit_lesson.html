@@ -1,0 +1,28 @@
+{% extends "adminpanel/base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/edit_lesson.css' %}">
+<link rel="stylesheet" href="{% static 'css/animations.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+{% endblock %}
+{% block content %}
+<h2 class="title is-3 scale-in-center" id="text">Редактировать урок: {{ lesson.title }}</h2> 
+
+<div class="container2 scale-in-center">
+    <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.name == "lesson_type"%}
+                    {{ field|add_class:"input" }}
+                {% elif field.name == "content"%}
+                    {{ field|add_class:"input" }}
+                {% else %}
+                    {{ field|add_class:"input is-rounded" }}
+                {% endif %}
+            {% endfor %}
+        <button class="button is-info is-inverted" id="accept" type="submit">Сохранить изменения</button>
+        <a class="button is-danger is-inverted" id="cancel" href="{% url 'adminpanel:module_lessons' lesson.module.id %}">Отмена</a>
+    </form>
+</div>
+{% endblock %}

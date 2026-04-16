@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+</head>
+<body>
+
+<nav>
+    <a href="{% url 'adminpanel:course_list' %}">Курсы</a>
+    <a href="{% url 'users:profile' %}">Профиль</a>
+    <a href="{% url 'users:signout' %}">Выйти</a>
+</nav>
+
+<hr>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

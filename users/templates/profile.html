@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/animations.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+{% endblock %}  
+
+
+<div class="profile-container scale-in-center">
+    <h2 class="title">Профиль пользователя</h2>
+    <div class="profile-card">
+        {% if user.user_image %}
+            <!-- <img src="{{ user.user_image.url }}" alt="Аватар" class="profile-avatar"> -->
+            <figure class="image is-128x128">
+                <img class="is-rounded" style="margin-left: 120px;" src="{{ user.user_image.url }}" />
+            </figure>
+            
+        {% else %}
+            <img src="/static/default-avatar.png" alt="Аватар" class="profile-avatar">
+        {% endif %}
+
+        <div class="card">
+        <div class="card-content" style="margin-top: 20px;">
+            <div class="content">
+            <p><strong>Имя:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Телефон:</strong> {{ user.phone_number }}</p>
+            <p><strong>Роль:</strong> {{ user.get_role_display }}</p>
+           </div>
+        </div>
+        </div>
+
+        <div class="profile-actions">
+            <a href="{% url 'users:signout' %}" class="button is-danger is-outlined">Выйти</a>
+        </div>
+    </div>
+</div>
+
+<!-- <style>
+.profile-container { max-width: 600px; margin: 30px auto; }
+.profile-card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; text-align: center; }
+.profile-avatar { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; }
+.profile-info p { margin: 5px 0; }
+.profile-actions a { margin: 10px 5px; display: inline-block; }
+</style> -->
+{% endblock %}

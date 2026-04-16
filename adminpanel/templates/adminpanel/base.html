@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%} Базовая страница {% endblock %}</title>
+    {% block link %} 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+    {% endblock %}
+
+    
+
+
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+
+<!-- 
+Добавить ссылку на лого -->
+    <a class="navbar-item" href="{% url 'students:course_list' %}">
+
+
+
+
+      <svg width="640" height="160" viewBox="0 0 640 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+<img src="/media/Users/user_image/file_00000000589c72078b32e3cf129f2c3c.png" alt="" style="height: 200px">
+</svg>
+
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      {% if user.role == "admin" %}
+      <a class="navbar-item" href="{% url 'adminpanel:course_list' %}">
+        Личный кабинет
+      </a>
+      {% endif %}
+      {% if user.is_authenticated %}
+      <a class="navbar-item" href="{% url 'users:profile'%}">
+        Профиль
+      </a>
+      <a class="navbar-item" href="{% url 'students:course_list' %}">Список курсов</a>
+      {% endif %}
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          {% if user.is_authenticated %}
+            <!-- <a class="button is-light" href="{% url 'users:signin' %}">Войти</a> -->
+            <a class="button is-primary" href="{% url 'users:signout' %}">Выйти</a>
+          {% else %}
+            <a class="button is-primary" href="{% url 'users:signin' %}">Логин</a>
+            <a class="button is-light" href="{% url 'users:signup' %}">Регистрация</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+    {% block content %} {% endblock %}
+</body>
+<!-- <footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>.
+      The source code is licensed
+      <a href="https://opensource.org/license/mit">MIT</a>. The
+      website content is licensed
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0//"
+        >CC BY NC SA 4.0</a
+      >.
+    </p>
+  </div>
+</footer> -->
+</html>

@@ -1,0 +1,53 @@
+{% extends "adminpanel/base.html" %}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/lesson_list.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+<link rel="stylesheet" href="{% static 'css/animations.css' %}">
+{% endblock %}
+{% block content %}
+<div class="tabs is-centered">
+  <ul>
+    <li><a href="{% url 'adminpanel:edit_module' module.id %}"> Редактировать</a></li>
+    <li><a href="{% url 'adminpanel:add_lesson' module.id %}">Добавить урок</a></li>
+    <li class="is-active"><a href="{% url 'adminpanel:module_lessons' module.id %}">Просмотреть уроки</a></li>
+  </ul>
+</div>
+
+<h2 class="title is-3 scale-in-center" style="margin-left: 20px; margin-top: 30px;">Уроки модуля: {{ module.title }}</h2>
+
+<a class="button is-primary is-inverted roll-in-blurred-left" style="margin-left: 20px;" href="{% url 'adminpanel:course_modules' module.course.id %}">⬅ Вернуться к модулям</a>
+<a class="button is-info is-inverted roll-in-blurred-left" style="margin-left: 20px;" href="{% url 'adminpanel:add_lesson' module.id %}">Добавить урок</a>
+
+<table class="table slide-in-blurred-top" style="margin-left: 200px; margin-top: 30px;">
+    <thead>
+        <tr>
+            <th style="width: 300px;">Порядок</th>
+            <th style="width: 300px;">Название</th>
+            <th style="width: 300px;">Тип</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for lesson in lessons %}
+        <tr>
+            <td>{{ lesson.order }}</td>
+            <td>{{ lesson.title }}</td>
+            <td>{{ lesson.get_lesson_type_display }}</td>
+            <td>
+                <a class="button is-link is-outlined" href="{% url 'adminpanel:edit_lesson' lesson.id %}">Редактировать</a> 
+                <a class="button is-danger is-inverted" href="{% url 'adminpanel:delete_lesson' lesson.id %}" onclick="return confirm('Вы уверены, что хотите удалить урок?');">Удалить</a>
+                {% if lesson.lesson_type == "task" %}
+                <a class="button is-primary is-inverted" href="{% url 'adminpanel:testcase_list' lesson.id %}">Тесты</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Уроков пока нет</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
