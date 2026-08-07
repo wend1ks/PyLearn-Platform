@@ -10,5 +10,6 @@ urlpatterns = [
     path('signin/', signin, name='signin'),
     path('signout/', signout, name='signout'),
     path("profile/", ProfileView.as_view(), name="profile"),
+    path("profile/edit/", profile_edit, name="profile_edit"),
 
 ]

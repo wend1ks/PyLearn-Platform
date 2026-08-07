@@ -27,9 +27,9 @@ class Lesson(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название')
     lesson_type = models.CharField(
         max_length=20,
-        choices=(('text','Text'),('video','Video'),('task','Task')),
+        choices=(('text','Текст'),('video','Видео'),('task','Задача')),
         verbose_name='Тип урока',
-        default= 'text'
+        default='text'
     )
 
     content = models.TextField(blank=True, verbose_name='Описание задачи')  # описание задачи
@@ -47,3 +47,6 @@ class TestCase(models.Model):
     expected_output = models.TextField()
     order = models.PositiveIntegerField(default=0)
 
+
+# Marker added for verification
+HELLO_WORLD = "hello world"  # hello world

@@ -1,0 +1,55 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}PyLearn{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+  <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+  {% block link %}{% endblock %}
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100">
+  <div class="min-h-screen flex flex-col">
+    <nav>
+      <div class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+        <a href="/" class="nav-logo"><span class="logo-icon">Py</span>PyLearn</a>
+        <div class="nav-links">
+          <a href="#career">Карьера</a><a href="#courses">Курсы</a><a href="#curriculum">Программа</a><a href="#pricing">Тарифы</a>
+        </div>
+        <div class="nav-actions">
+          {% if user.is_authenticated %}
+            {% if user.role == 'admin' %}<a href="{% url 'adminpanel:dashboard' %}" class="btn btn-primary">Админ-панель</a>{% endif %}
+            <a href="{% url 'users:profile' %}" class="btn btn-ghost">Профиль</a><a href="{% url 'users:signout' %}" class="btn btn-ghost">Выйти</a>
+          {% else %}
+            <a href="{% url 'users:signin' %}" class="btn btn-ghost">Войти</a><a href="{% url 'users:signup' %}" class="btn btn-primary">Начать бесплатно</a>
+          {% endif %}
+        </div>
+        <div class="mobile-menu-wrap">
+          <button class="mobile-menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu">•••</button>
+          <div class="mobile-menu" id="mobile-menu" hidden>
+            <a href="{% url 'students:course_list' %}">Курсы</a>
+            {% if user.is_authenticated %}
+              {% if user.role == 'admin' %}<a href="{% url 'adminpanel:dashboard' %}">Админ-панель</a>{% endif %}
+              <a href="{% url 'users:profile' %}">Профиль</a><a href="{% url 'users:signout' %}">Выйти</a>
+            {% else %}
+              <a href="{% url 'users:signin' %}">Войти</a><a href="{% url 'users:signup' %}">Регистрация</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+    <main class="flex-1"><div class="max-w-7xl mx-auto px-6 py-10">{% block content %}{% endblock %}</div></main>
+  </div>
+  <script>
+    (function () {
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      const menu = document.querySelector('.mobile-menu');
+      if (!toggle || !menu) return;
+      toggle.addEventListener('click', function () { const isOpen = !menu.hidden; menu.hidden = isOpen; toggle.setAttribute('aria-expanded', String(!isOpen)); });
+      document.addEventListener('click', function (event) { if (!menu.hidden && !event.target.closest('.mobile-menu-wrap')) { menu.hidden = true; toggle.setAttribute('aria-expanded', 'false'); } });
+      document.addEventListener('keydown', function (event) { if (event.key === 'Escape') { menu.hidden = true; toggle.setAttribute('aria-expanded', 'false'); } });
+    }());
+  </script>
+</body>
+</html>

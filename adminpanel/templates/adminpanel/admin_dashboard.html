@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Panel</title>
-</head>
-<body>
-
-<nav>
-    <a href="{% url 'adminpanel:course_list' %}">Курсы</a>
-    <a href="{% url 'users:profile' %}">Профиль</a>
-    <a href="{% url 'users:signout' %}">Выйти</a>
-</nav>
-
-<hr>
-
-{% block content %}{% endblock %}
-
-</body>
-</html>
+{% extends 'adminpanel/base.html' %}
+{% block admin_content %}
+<div class="admin-header"><div><p class="admin-eyebrow">PyLearn / Admin</p><h1 class="admin-heading">Добро пожаловать</h1><p class="admin-subtitle">Управляйте учебной программой из одного места.</p></div><a href="{% url 'adminpanel:add_course' %}" class="admin-button">+ Добавить курс</a></div>
+<section class="admin-grid">
+  <div class="admin-stat"><div class="admin-stat-label">Курсы</div><div class="admin-stat-value">{{ course_count }}</div></div>
+  <div class="admin-stat"><div class="admin-stat-label">Модули</div><div class="admin-stat-value">{{ module_count }}</div></div>
+  <div class="admin-stat"><div class="admin-stat-label">Уроки</div><div class="admin-stat-value">{{ lesson_count }}</div></div>
+</section>
+<div class="admin-welcome"><p class="admin-eyebrow">Быстрые действия</p></div>
+<div class="admin-card-grid"><a class="admin-quick-link" href="{% url 'adminpanel:course_list' %}"><div class="admin-card"><strong>Учебные курсы →</strong><p>Добавляйте курсы, меняйте их описание и переходите к структуре модулей.</p></div></a><a class="admin-quick-link" href="{% url 'users:profile' %}"><div class="admin-card"><strong>Мой профиль →</strong><p>Проверьте данные учётной записи и настройки профиля.</p></div></a></div>
+{% endblock %}

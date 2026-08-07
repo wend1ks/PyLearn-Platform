@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from courses.models import Course, Lesson
 from students.models import LessonProgress
 import sys, io
+from .code_runner import run_user_code
 
 @login_required
 def course_list(request):
@@ -131,56 +132,42 @@ def lesson_detail(request, lesson_id):
             all_passed = True
 
             for testcase in lesson.testcases.all().order_by('order'):
-                old_stdout = sys.stdout
-                sys.stdout = buffer = io.StringIO()
-
                 passed = False
                 output = ""
 
                 try:
-                    # 🧩 создаем окружение
-                    exec_globals = {}
-
-                    # 🧩 input_data поддерживает МНОГО переменных
+                    # Подготовка входных переменных как списка (сохранение порядка строк)
+                    inputs = []
                     for line in testcase.input_data.splitlines():
                         if "=" in line:
                             var, value = line.split("=", 1)
-                            exec_globals[var.strip()] = eval(value.strip())
+                            inputs.append((var.strip(), value.strip()))
 
-                    # 🧩 выполняем код пользователя
-                    exec(user_code, exec_globals)
+                    # Запускаем код пользователя в отдельном процессе
+                    run_result = run_user_code(user_code, inputs, timeout=5)
 
-                    # 🧩 если есть функция solve — вызываем её
-                    if "solve" in exec_globals and callable(exec_globals["solve"]):
-                        args = [
-                            exec_globals[k]
-                            for k in exec_globals
-                            if k not in ("solve", "__builtins__")
-                        ]
-                        result_value = exec_globals["solve"](*args)
-                        output = str(result_value)
+                    # Если в stderr что-то пришло — считаем ошибкой выполнения
+                    stderr = (run_result.get('error') or '').strip()
+                    stdout = (run_result.get('output') or '').strip()
 
-                    else:
-                        output = buffer.getvalue().strip()
-
-                    expected = testcase.expected_output.strip()
-
-                    # 🧩 сравнение
-                    try:
-                        passed = float(output) == float(expected)
-                    except:
-                        passed = output == expected
-
-                    if not passed:
+                    if stderr:
+                        output = stderr
+                        passed = False
                         all_passed = False
+                    else:
+                        output = stdout
+                        expected = testcase.expected_output.strip()
+                        try:
+                            passed = float(output) == float(expected)
+                        except:
+                            passed = output == expected
+                        if not passed:
+                            all_passed = False
 
                 except Exception as e:
                     output = f"{type(e).__name__}: {e}"
                     passed = False
                     all_passed = False
-
-                finally:
-                    sys.stdout = old_stdout
 
                 feedback.append({
                     "input": testcase.input_data,

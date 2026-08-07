@@ -5,10 +5,9 @@ from django import forms
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ("username", "email", "phone_number", "role", 'user_image')
-        exclude =('teacher','admin')
+        fields = ("username", "email", "password1", "password2", "user_image")
         widgets = {
-            'user_image' : forms.FileInput(attrs={'class' : 'file is-info has-name'})
+            'user_image': forms.FileInput(attrs={'accept': 'image/*'}),
         }
 
 class SignInForm(forms.Form):
@@ -31,4 +30,4 @@ class SignInForm(forms.Form):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ["first_name", "last_name", "email", "phone_number", "user_image"]
+        fields = ["first_name", "last_name", "email", "user_image"]

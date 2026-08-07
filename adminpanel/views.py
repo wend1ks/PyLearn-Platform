@@ -8,7 +8,11 @@ from .forms import CourseForm,ModuleForm, LessonForm, TestCaseForm, TestCase
 
 @admin_required
 def admin_dashboard(request):
-    return render(request, "adminpanel/admin_dashboard.html")
+    return render(request, "adminpanel/admin_dashboard.html", {
+        "course_count": Course.objects.count(),
+        "module_count": Module.objects.count(),
+        "lesson_count": Lesson.objects.count(),
+    })
 
 @login_required
 def add_course(request):

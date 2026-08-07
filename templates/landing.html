@@ -1,0 +1,440 @@
+{% extends 'base.html' %}
+
+{% block title %}PyLearn — Курсы Python-разработчика{% endblock %}
+
+{% block content %}
+  <div class="promo-banner">
+    <span>Скидка 15%</span> — запишитесь до 31 июля и сохраните цену
+  </div>
+
+  <section class="hero" id="career">
+    <div class="hero-badge"><span>✦</span> Доверяют тысячам студентов</div>
+
+    <h1>
+      Стань<br>
+      <em>Python-разработчиком</em>
+    </h1>
+
+    <p class="hero-sub">  
+      Изучи Python с нуля, создавай реальные проекты и готовься к работе с помощью живых проверок кода и практических заданий.
+    </p>
+
+    <div class="hero-actions">
+      <a href="{% url 'students:course_list' %}" class="btn btn-primary">
+        ▶ Начать бесплатно
+      </a>
+      <a href="{% url 'students:course_list' %}" class="btn btn-ghost">
+        ↓ Скачать программу
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-value">{{ course_count }}</div>
+        <div class="stat-label">КУРСОВ</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">{{ module_count }}</div>
+        <div class="stat-label">МОДУЛЕЙ</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">{{ lesson_count }}+</div>
+        <div class="stat-label">УРОКОВ</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">{{ project_count }}</div>
+        <div class="stat-label">ПРОЕКТОВ</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="page-layout" id="courses">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h4>Содержание курса</h4>
+
+        <div class="sidebar-item done">
+          <div class="sidebar-dot"></div>
+          Бесплатный доступ
+        </div>
+
+        <div class="sidebar-item active">
+          <div class="sidebar-dot"></div>
+          Стандартный план
+        </div>
+
+        <div class="sidebar-item">
+          <div class="sidebar-dot"></div>
+          Профи
+        </div>
+      </div>
+
+      <div class="sidebar-section" id="curriculum">
+        <h4>Модули</h4>
+
+        <div class="sidebar-item done">
+          <div class="sidebar-dot"></div>
+          Основы Python
+        </div>
+
+        <div class="sidebar-item done">
+          <div class="sidebar-dot"></div>
+          Базы данных и Flask
+        </div>
+
+        <div class="sidebar-item active">
+          <div class="sidebar-dot"></div>
+          Django
+        </div>
+
+        <div class="sidebar-item">
+          <div class="sidebar-dot"></div>
+          API и микросервисы
+        </div>
+
+        <div class="sidebar-item">
+          <div class="sidebar-dot"></div>
+          Docker и деплой
+        </div>
+
+        <div class="sidebar-item">
+          <div class="sidebar-dot"></div>
+          Итоговый проект
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="section-label">
+        <div class="section-icon icon-free">▲</div>
+        <div class="section-info">
+          <h3>Бесплатный доступ</h3>
+          <p>Изучите курс, создайте первое приложение на Python и убедитесь, что он вам подходит.</p>
+          <div class="time-badge">⏱ 5 часов обучения</div>
+        </div>
+      </div>
+
+      <div class="module-card open">
+        <div class="module-header">
+          <div class="module-title">
+            <span class="module-title-tag">01</span>
+            Основы Python
+          </div>
+          <span class="module-chevron">▾</span>
+        </div>
+
+        <div class="module-body">
+          <ul class="lesson-list">
+            <li class="lesson-item done">
+              <span class="lesson-icon">📄</span>
+              Введение в Python
+              <span class="done-check" style="margin-left:auto;">✓</span>
+            </li>
+            <li class="lesson-item done">
+              <span class="lesson-icon">📄</span>
+              Циклы и условия
+              <span class="done-check" style="margin-left:auto;">✓</span>
+            </li>
+            <li class="lesson-item">
+              <span class="lesson-icon">📝</span>
+              Функции
+            </li>
+            <li class="lesson-item">
+              <span class="lesson-icon">📝</span>
+              Словари и множества
+            </li>
+          </ul>
+
+          <div class="module-footer">
+            <p>Напишите своё первое приложение в интерактивной среде.</p>
+            <div>
+              <div class="prog-bar">
+                <div class="prog-bar-fill" style="width:50%"></div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#courses" class="try-btn">
+            Начать бесплатно
+          </a>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-label">
+        <div class="section-icon icon-base">✦</div>
+        <div class="section-info">
+          <h3>Стандартный план</h3>
+          <p>Всё, что нужно для уверенного старта в Python-разработке.</p>
+          <div class="time-badge">⏱ 10 месяцев</div>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header">
+          <div class="module-title">
+            <span class="module-title-tag">02</span>
+            Базы данных и Flask
+          </div>
+          <span class="module-chevron">▾</span>
+        </div>
+
+        <div class="module-body">
+          <ul class="lesson-list">
+            <li class="lesson-item">
+              <span class="lesson-icon">📄</span>
+              SQL и PostgreSQL
+            </li>
+            <li class="lesson-item">
+              <span class="lesson-icon">📄</span>
+              SQLAlchemy ORM
+            </li>
+            <li class="lesson-item">
+              <span class="lesson-icon">🎥</span>
+              Веб-приложения на Flask
+            </li>
+            <li class="lesson-item">
+              <span class="lesson-icon">📝</span>
+              Проект: REST API на Flask
+            </li>
+          </ul>
+
+          <div class="module-footer">
+            <p>4 практических проекта · 3 проверки экспертов</p>
+            <div>
+              <div class="prog-bar">
+                <div class="prog-bar-fill" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#courses" class="try-btn">
+            Перейти к модулю
+          </a>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header">
+          <div class="module-title">
+            <span class="module-title-tag">03</span>
+            Django
+          </div>
+          <span class="module-chevron">▾</span>
+        </div>
+
+        <div class="module-body">
+          <ul class="lesson-list">
+            <li class="lesson-item">
+              <span class="lesson-icon">📄</span>
+              Структура проекта Django
+            </li>
+            <li class="lesson-item">
+              <span class="lesson-icon">📄</span>
+              Модели, представления и шаблоны
+            </li>
+            <li class="lesson-item">
+              <span class="lesson-icon">🎥</span>
+              Django REST Framework
+            </li>
+            <li class="lesson-item">
+              <span class="lesson-icon">📝</span>
+              Аутентификация и права доступа
+            </li>
+          </ul>
+
+          <div class="module-footer">
+            <p>Создайте полноценное веб-приложение для реального проекта.</p>
+            <div>
+              <div class="prog-bar">
+                <div class="prog-bar-fill" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <button class="try-btn">
+            Перейти к модулю
+          </button>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-label">
+        <div class="section-icon icon-pro">◆</div>
+        <div class="section-info">
+          <h3>План «Профи»</h3>
+          <p>Продвинутая разработка с наставничеством и карьерной поддержкой.</p>
+          <div class="time-badge">⏱ 12 месяцев</div>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header">
+          <div class="module-title">
+            <span class="module-title-tag">04</span>
+            API и микросервисы
+          </div>
+          <span class="module-chevron">▾</span>
+        </div>
+
+        <div class="module-body">
+          <ul class="lesson-list">
+            <li class="lesson-item">
+              <span class="lesson-icon">📄</span>
+              Проектирование REST и GraphQL API
+            </li>
+            <li class="lesson-item">
+              <span class="lesson-icon">📄</span>
+              FastAPI и асинхронность
+            </li>
+            <li class="lesson-item">
+              <span class="lesson-icon">📝</span>
+              Celery и очереди задач
+            </li>
+          </ul>
+
+          <div class="module-footer">
+            <p>3 продвинутых проекта · живые сессии с наставником</p>
+            <div>
+              <div class="prog-bar">
+                <div class="prog-bar-fill" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <button class="try-btn" style="background:var(--orange-dim);border-color:var(--orange);color:var(--orange);">
+            Входит в Профи
+          </button>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header">
+          <div class="module-title">
+            <span class="module-title-tag">05</span>
+            Docker, CI/CD и деплой
+          </div>
+          <span class="module-chevron">▾</span>
+        </div>
+
+        <div class="module-body">
+          <ul class="lesson-list">
+            <li class="lesson-item">
+              <span class="lesson-icon">📄</span>
+              Docker и Docker Compose
+            </li>
+            <li class="lesson-item">
+              <span class="lesson-icon">🎥</span>
+              GitHub Actions для CI/CD
+            </li>
+            <li class="lesson-item">
+              <span class="lesson-icon">📝</span>
+              Деплой на VPS и облачные платформы
+            </li>
+          </ul>
+
+          <div class="module-footer">
+            <p>Выполните деплой приложения в рабочем окружении.</p>
+            <div>
+              <div class="prog-bar">
+                <div class="prog-bar-fill" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <button class="try-btn" style="background:var(--orange-dim);border-color:var(--orange);color:var(--orange);">
+            Входит в Профи
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <section class="tariffs" id="pricing">
+    <h2>Выберите путь обучения</h2>
+
+    <div class="tariff-grid">
+      <div class="tariff-card">
+        <div class="tariff-name">▲ Бесплатно</div>
+        <div class="tariff-desc">Ознакомьтесь с Python до покупки.</div>
+        <div class="tariff-price">
+          0 ₽ <span>навсегда</span>
+        </div>
+        <ul class="tariff-features">
+          <li>Основы Python</li>
+          <li>Интерактивные задания</li>
+          <li>Сертификат о прохождении</li>
+        </ul>
+        <a href="{% url 'students:course_list' %}" class="tariff-btn tariff-btn-outline">
+          Начать бесплатно
+        </a>
+      </div>
+
+      <div class="tariff-card featured">
+        <div class="tariff-badge">Популярно</div>
+        <div class="tariff-name">✦ Профессионал</div>
+        <div class="tariff-desc">Всё, чтобы вывести карьеру Python-разработчика на новый уровень.</div>
+        <div class="tariff-price">
+          2490 ₽ <span>/месяц</span>
+        </div>
+        <ul class="tariff-features">
+          <li>Профессиональная программа Python</li>
+          <li>Реальные проекты для портфолио</li>
+          <li>Проверки экспертов</li>
+          <li>Карьера и поддержка</li>
+          <li>Сертификат о завершении</li>
+        </ul>
+        <a href="{% url 'students:course_list' %}" class="tariff-btn tariff-btn-filled">
+          Записаться
+        </a>
+      </div>
+
+      <div class="tariff-card">
+        <div class="tariff-name">◆ Профи</div>
+        <div class="tariff-desc">Продвинутый курс с личным наставником.</div>
+        <div class="tariff-price">
+          4490 ₽ <span>/месяц</span>
+        </div>
+        <ul class="tariff-features">
+          <li>Всё из Профессионала</li>
+          <li>Индивидуальный наставник</li>
+          <li>Технические симуляции</li>
+          <li>Коучинг по карьере</li>
+          <li>Приоритетная поддержка</li>
+        </ul>
+        <a href="{% url 'students:course_list' %}" class="tariff-btn tariff-btn-outline">
+          Перейти на Профи
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="floating-cta">
+    <p>
+      <strong>Скидка 15%</strong> — предложение до 31 июля
+    </p>
+    <a href="{% url 'students:course_list' %}" class="btn btn-primary">
+      Начать бесплатно
+    </a>
+    <a href="#" class="btn btn-ghost" style="padding:8px;font-size:13px;">
+      💬
+    </a>
+  </div>
+
+  <script>
+    document.querySelectorAll('.module-header').forEach(function (header) {
+      header.addEventListener('click', function () {
+        var card = header.closest('.module-card');
+        var isOpen = card.classList.contains('open');
+        document.querySelectorAll('.module-card').forEach(function (c) {
+          c.classList.remove('open');
+        });
+        if (!isOpen) {
+          card.classList.add('open');
+        }
+      });
+    });
+  </script>
+{% endblock %}
