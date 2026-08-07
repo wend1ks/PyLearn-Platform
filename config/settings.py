@@ -31,15 +31,20 @@ DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() in ('1', 'true', 'yes')
 
 # Allow configuring allowed hosts via DJANGO_ALLOWED_HOSTS (comma-separated)
 hosts = os.getenv('DJANGO_ALLOWED_HOSTS', '')
-ALLOWED_HOSTS =  ["localhost",
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
+
+ALLOWED_HOSTS = [
+    "localhost",
     "127.0.0.1",
     ".railway.app",
     "pylearn-platform-production.up.railway.app",
 ]
+
 CSRF_TRUSTED_ORIGINS = [
     "https://pylearn-platform-production.up.railway.app",
 ]
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -141,4 +146,4 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media' 
 
-print("CSRF =", CSRF_TRUSTED_ORIGINS)
+print("Hello world")
