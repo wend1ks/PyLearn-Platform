@@ -34,8 +34,11 @@ hosts = os.getenv('DJANGO_ALLOWED_HOSTS', '')
 ALLOWED_HOSTS =  ["localhost",
     "127.0.0.1",
     ".railway.app",
+    "pylearn-platform-production.up.railway.app",
 ]
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://pylearn-platform-production.up.railway.app",
+]
 # Application definition
 
 INSTALLED_APPS = [
